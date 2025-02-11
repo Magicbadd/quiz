@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz da Giovana</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #ffe6f2;
+        }
+        .quiz-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        button {
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            background-color: #ff66b2;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #ff3385;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container" id="quiz">
+        <h2 id="question">Quem é mais provável de esquecer onde deixou o celular?</h2>
+        <button onclick="nextQuestion(1)">Giovana 🤭 (Vale Selinho 💋)</button>
+        <button onclick="nextQuestion(0)">Guilherme 🤔 (Vale Beijo na Bochecha 😘)</button>
+    </div>
+
+    <script>
+        let step = 0;
+        const questions = [
+            "Quem é mais provável de rir na hora errada? 😂",
+            "Quem pediria comida e esqueceria de pegar? 🍕",
+            "Quem faria drama por um motivo bobo? 🎭",
+            "Quem é mais provável de dormir no meio do filme? 🎬💤"
+        ];
+        const rewards = [
+            "Vale Selinho 💋", 
+            "Vale Beijo na Bochecha 😘", 
+            "Vale Abraço Apertado 🤗", 
+            "Vale Cafuné 💆‍♀️", 
+            "Vale Mordidinha 😜"
+        ];
+
+        function nextQuestion(correct) {
+            const quiz = document.getElementById("quiz");
+            if (step < questions.length) {
+                quiz.innerHTML = `<h2>${questions[step]}</h2><button onclick='nextQuestion(1)'>Giovana 🤭 (${rewards[step % rewards.length]})</button><button onclick='nextQuestion(0)'>Guilherme 🤔 (${rewards[(step + 1) % rewards.length]})</button>`;
+                step++;
+            } else {
+                quiz.innerHTML = `<h2>A MÁQUINA DETECTOU QUE VOCÊ MENTE MUITO! 🤥</h2><h3>❤️ Eu te amo, Giovana! ❤️</h3><p>Agora vem cá me dar o prêmio final: Um beijo! 😘</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
