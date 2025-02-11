@@ -36,17 +36,18 @@
 <body>
     <div class="quiz-container" id="quiz">
         <h2 id="question">Quem é mais provável de esquecer onde deixou o celular?</h2>
-        <button onclick="nextQuestion(1)">Giovana 🤭 (Vale Selinho 💋)</button>
-        <button onclick="nextQuestion(0)">Guilherme 🤔 (Vale Beijo na Bochecha 😘)</button>
+        <button onclick="nextQuestion(1, 'Giovana')">Giovana 🤭 (Vale Selinho 💋)</button>
+        <button onclick="nextQuestion(0, 'Guilherme')">Guilherme 🤔 (Vale Beijo na Bochecha 😘)</button>
     </div>
 
     <script>
         let step = 0;
         const questions = [
             "Quem é mais provável de rir na hora errada? 😂",
-            "Quem pediria comida e esqueceria de pegar? 🍕",
-            "Quem faria drama por um motivo bobo? 🎭",
-            "Quem é mais provável de dormir no meio do filme? 🎬💤"
+            "Quem pediria comida todo dia? 🍕",
+            "Quem cozinha melhor? 🍳",
+            "Quem é melhor jogando? 🎮",
+            "Quem é mais bonito? 😎"
         ];
         const rewards = [
             "Vale Selinho 💋", 
@@ -56,13 +57,19 @@
             "Vale Mordidinha 😜"
         ];
 
-        function nextQuestion(correct) {
+        function nextQuestion(correct, chosen) {
             const quiz = document.getElementById("quiz");
             if (step < questions.length) {
-                quiz.innerHTML = `<h2>${questions[step]}</h2><button onclick='nextQuestion(1)'>Giovana 🤭 (${rewards[step % rewards.length]})</button><button onclick='nextQuestion(0)'>Guilherme 🤔 (${rewards[(step + 1) % rewards.length]})</button>`;
+                quiz.innerHTML = `<h2>${questions[step]}</h2>
+                <button onclick='nextQuestion(1, "Giovana")'>Giovana 🤭 (${rewards[step % rewards.length]})</button>
+                <button onclick='nextQuestion(0, "Guilherme")'>Guilherme 🤔 (${rewards[(step + 1) % rewards.length]})</button>`;
                 step++;
             } else {
-                quiz.innerHTML = `<h2>A MÁQUINA DETECTOU QUE VOCÊ MENTE MUITO! 🤥</h2><h3>❤️ Eu te amo, Giovana! ❤️</h3><p>Agora vem cá me dar o prêmio final: Um beijo! 😘</p>`;
+                if (chosen === "Guilherme") {
+                    quiz.innerHTML = `<h2>VOCÊ MENTE FORTE! 🤥</h2><h3>❤️ Eu te amo, sdd! ❤️</h3>`;
+                } else {
+                    quiz.innerHTML = `<h2>É A SUA CARA MESMO! 😂</h2><h3>❤️ Eu te amo, sdd! ❤️</h3>`;
+                }
             }
         }
     </script>
