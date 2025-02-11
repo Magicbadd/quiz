@@ -31,6 +31,22 @@
         button:hover {
             background-color: #ff3385;
         }
+        .gift-boxes {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .gift-box {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            background-color: #ff99cc;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .gift-box:hover {
+            background-color: #ff66b2;
+        }
     </style>
 </head>
 <body>
@@ -56,9 +72,28 @@
             "Vale Cafuné 💆‍♀️", 
             "Vale Mordidinha 😜"
         ];
+        let reflexStartTime = null;
 
         function nextQuestion(correct, chosen) {
             const quiz = document.getElementById("quiz");
+
+            // Adicionando o Jogo do Reflexo
+            if (step === questions.length - 1) {
+                quiz.innerHTML = `<h2>Última pergunta! Preparada?</h2>
+                <button onclick="startReflexGame()">Clique rápido!</button>`;
+                return;
+            }
+
+            if (step === questions.length) {
+                quiz.innerHTML = `<h2>Escolha um presente!</h2>
+                <div class="gift-boxes">
+                    <div class="gift-box" onclick="openGift(1)">Caixa 1</div>
+                    <div class="gift-box" onclick="openGift(2)">Caixa 2</div>
+                    <div class="gift-box" onclick="openGift(3)">Caixa 3</div>
+                </div>`;
+                return;
+            }
+
             if (step < questions.length) {
                 quiz.innerHTML = `<h2>${questions[step]}</h2>
                 <button onclick='nextQuestion(1, "Giovana")'>Giovana 🤭 (${rewards[step % rewards.length]})</button>
@@ -73,6 +108,33 @@
                                       <h3>Sua beleza não está só no rosto, mas no sorriso, no olhar, no jeito único de ser… Você é arte viva. 🎨✨</h3>`;
                 }
             }
+        }
+
+        function startReflexGame() {
+            reflexStartTime = Date.now();
+            const quiz = document.getElementById("quiz");
+            quiz.innerHTML = `<h2>Prepare-se para clicar rápido!</h2>`;
+            setTimeout(() => {
+                const timeTaken = Date.now() - reflexStartTime;
+                if (timeTaken < 1000) {
+                    quiz.innerHTML = `<h2>Você ganhou um prêmio especial! 🎉 Vale Beijo 😘</h2>`;
+                } else {
+                    quiz.innerHTML = `<h2>Você perdeu o combo do Jerônimo. Tente novamente! ⚡</h2>`;
+                }
+            }, 1000);
+        }
+
+        function openGift(giftNumber) {
+            const quiz = document.getElementById("quiz");
+            let giftMessage = "";
+            if (giftNumber === 1) {
+                giftMessage = "Você ganhou um vale fazer massagem no Gui! 💆‍♂️";
+            } else if (giftNumber === 2) {
+                giftMessage = "Você ganhou um vale fazer carinho no Gui! 🥰";
+            } else if (giftNumber === 3) {
+                giftMessage = "Você ganhou um vale beijo no Gui! 💋";
+            }
+            quiz.innerHTML = `<h2>${giftMessage}</h2>`;
         }
     </script>
 </body>
