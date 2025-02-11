@@ -81,49 +81,25 @@
         function nextQuestion(correct, chosen) {
             const quiz = document.getElementById("quiz");
 
-            // Adicionando o Jogo do Reflexo
-            if (step === questions.length - 1) {
-                quiz.innerHTML = `<h2>Última pergunta! Preparada?</h2>
-                <button onclick="startReflexGame()">Clique rápido!</button>`;
-                return;
-            }
-
-            if (step === questions.length) {
-                quiz.innerHTML = `<h2>Escolha um presente!</h2>
-                <div class="gift-boxes">
-                    <div class="gift-box" onclick="openGift(1)">Caixa 1</div>
-                    <div class="gift-box" onclick="openGift(2)">Caixa 2</div>
-                    <div class="gift-box" onclick="openGift(3)">Caixa 3</div>
-                </div>`;
-                return;
-            }
-
             if (step < questions.length) {
                 quiz.innerHTML = `<h2>${questions[step]}</h2>
                 <button onclick='nextQuestion(1, "Giovana")'>Giovana 🤭 (${rewards[step % rewards.length]})</button>
                 <button onclick='nextQuestion(0, "Guilherme")'>Guilherme 🤔 (${rewards[(step + 1) % rewards.length]})</button>`;
                 step++;
-            } else {
-                if (chosen === "Guilherme") {
-                    quiz.innerHTML = `<h2>Por essa nem o futuro esperava! 😂</h2>
-                                      <h3>A verdadeira beleza não está apenas no que os olhos veem, mas no que o coração sente. Se você clicou aqui, significa que enxergou além da aparência e encontrou algo especial. ❤️</h3>`;
-                } else {
-                    quiz.innerHTML = `<h2>A resposta não poderia ser outra. 😍</h2>
-                                      <h3>Sua beleza não está só no rosto, mas no sorriso, no olhar, no jeito único de ser… Você é arte viva. 🎨✨</h3>`;
-                }
+            } else if (step === questions.length) {
+                // Quando todas as perguntas forem respondidas, aparecerá o jogo do presente.
+                showGiftBoxes();
             }
         }
 
-        function startReflexGame() {
-            reflexStartTime = Date.now();
+        function showGiftBoxes() {
             const quiz = document.getElementById("quiz");
-            quiz.innerHTML = `<h2>Prepare-se para clicar rápido!</h2>`;
-            setTimeout(() => {
-                const timeTaken = Date.now() - reflexStartTime;
-                quiz.innerHTML = `<h2>Você perdeu o combo do Jerônimo. Tente novamente! ⚡</h2>`;
-                step++; // Garantir que o quiz continue após a perda
-                setTimeout(nextQuestion, 2000); // Continuar com as perguntas após 2 segundos
-            }, 1000);
+            quiz.innerHTML = `<h2>Escolha um presente!</h2>
+            <div class="gift-boxes">
+                <div class="gift-box" onclick="openGift(1)">Caixa 1</div>
+                <div class="gift-box" onclick="openGift(2)">Caixa 2</div>
+                <div class="gift-box" onclick="openGift(3)">Caixa 3</div>
+            </div>`;
         }
 
         function openGift(giftNumber) {
@@ -137,7 +113,26 @@
                 giftMessage = "Você ganhou um vale beijo no Gui! 💋";
             }
             quiz.innerHTML = `<h2>${giftMessage}</h2>
-            <button onclick="nextQuestion()">Avançar para a próxima pergunta!</button>`;
+            <button onclick="startReflexGame()">Avançar para o jogo do reflexo!</button>`;
+        }
+
+        function startReflexGame() {
+            reflexStartTime = Date.now();
+            const quiz = document.getElementById("quiz");
+            quiz.innerHTML = `<h2>Prepare-se para clicar rápido!</h2>`;
+            setTimeout(() => {
+                const timeTaken = Date.now() - reflexStartTime;
+                quiz.innerHTML = `<h2>Você perdeu o combo do Jerônimo. Tente novamente! ⚡</h2>`;
+                setTimeout(() => {
+                    // Após o "game over", vamos continuar com a próxima parte.
+                    showCrepusculoButton();
+                }, 2000);
+            }, 1000);
+        }
+
+        function showCrepusculoButton() {
+            const quiz = document.getElementById("quiz");
+            quiz.innerHTML = `<button onclick="showCrepusculoPage()">Se Crepúsculo é bom, clique aqui</button>`;
         }
 
         function showCrepusculoPage() {
@@ -150,14 +145,6 @@
             const quiz = document.getElementById("quiz");
             quiz.innerHTML = `<h2>Eu te amo, Sdd 💖</h2>`;
         }
-
-        function showCrepusculoButton() {
-            const quiz = document.getElementById("quiz");
-            quiz.innerHTML = `<button onclick="showCrepusculoPage()">Se Crepúsculo é bom, clique aqui</button>`;
-        }
-
-        // Inicia com o botão para o Crepúsculo
-        showCrepusculoButton();
 
     </script>
 </body>
