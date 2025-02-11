@@ -47,6 +47,10 @@
         .gift-box:hover {
             background-color: #ff66b2;
         }
+        .heart-btn {
+            font-size: 24px;
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -132,9 +136,29 @@
             } else if (giftNumber === 3) {
                 giftMessage = "Você ganhou um vale beijo no Gui! 💋";
             }
-            quiz.innerHTML = `<h2>${giftMessage}</h2>`;
-            setTimeout(nextQuestion, 2000); // Continuar com as perguntas após 2 segundos
+            quiz.innerHTML = `<h2>${giftMessage}</h2>
+            <button onclick="nextQuestion()">Avançar para a próxima pergunta!</button>`;
         }
+
+        function showCrepusculoPage() {
+            const quiz = document.getElementById("quiz");
+            quiz.innerHTML = `<h2>ESSE FILME É PÉSSIMO! 😝</h2>
+            <button class="heart-btn" onclick="showLoveMessage()">❤️</button>`;
+        }
+
+        function showLoveMessage() {
+            const quiz = document.getElementById("quiz");
+            quiz.innerHTML = `<h2>Eu te amo, Sdd 💖</h2>`;
+        }
+
+        function showCrepusculoButton() {
+            const quiz = document.getElementById("quiz");
+            quiz.innerHTML = `<button onclick="showCrepusculoPage()">Se Crepúsculo é bom, clique aqui</button>`;
+        }
+
+        // Inicia com o botão para o Crepúsculo
+        showCrepusculoButton();
+
     </script>
 </body>
 </html>
